@@ -1,0 +1,23 @@
+#include <iostream>
+using namespace std;
+
+int solve(int n, int m) {
+    int peaches = m;
+    for (int i = 0; i < n; i++) {
+        peaches = (peaches + 1) * 2;
+    }
+
+    return peaches;
+}
+int main() {
+    int n, m;
+    cout << "Enter the monkey number (n): ";
+    cin >> n;
+    cout << "Enter the remaining peaches (m): ";
+    cin >> m;
+
+    int num = solve(n, m);
+    cout << "The original number of peaches: " << num << endl;
+
+    return 0;
+}

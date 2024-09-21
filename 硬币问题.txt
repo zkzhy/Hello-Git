@@ -1,0 +1,27 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int solve(int n) {
+    vector<int> coins = { 1, 2, 5 };
+    vector<int> dp(n + 1, 0);
+    dp[0] = 1;
+
+    for (int coin : coins) {
+        for (int i = coin; i <= n; i++) {
+            dp[i] += dp[i - coin];
+        }
+    }
+
+    return dp[n];
+}
+
+int main() {
+    int n;
+    cout << "Enter the amount in cents: ";
+    cin >> n;
+
+    cout << "Number of ways to make change: " << solve(n) << endl;
+
+    return 0;
+}
