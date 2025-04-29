@@ -1,0 +1,13 @@
+{% block content %}
+<h1>Advice Report</h1>
+<form method="post">
+    <label for="url">Input URL on THIS SITE(http://ezmail.org):</label>
+    <input type="text" id="url" name="url" required><br><br>
+    <label for="content">Detailed discription: </label><br>
+    <textarea id="content" name="content" rows="4" cols="50" required></textarea><br><br>
+    <button type="submit">Submit</button>
+</form>
+{% if message %}
+<p>{{ message }}</p>
+{% endif %}
+{% endblock %}

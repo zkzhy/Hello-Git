@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block styles %}
+<style>
+    #news-container {
+        width: 50%;
+        height: 200px;
+        overflow: hidden;
+        margin: 20px auto;
+        border-radius: 10px;
+        border: 1px solid #ccc;
+        background-color: #fff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 10px;
+        background-color: #f9f9f9;
+        box-sizing: border-box;
+    }
+
+    #news-content {
+        transition: transform 1s ease-in-out;
+        white-space: nowrap;
+    }
+
+    #news-content > div {
+        display: inline-block;
+        width: 100%;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<h1>News Page</h1>
+<div id="news-container">
+    <div id="news-content"></div>
+</div>
+
+<script>
+    let currentNewsId = 1;
+    const totalNews = 4; 
+    const newsContentContainer = document.getElementById('news-content');
+
+    function loadNews(newsId) {
+        fetch(`/news?id=${newsId}`)
+            .then(response => response.text())
+            .then(data => {
+                const newsItem = document.createElement('div');
+                newsItem.innerHTML = `<h2>${data}</h2>`;
+                newsContentContainer.appendChild(newsItem);
+            })
+            .catch(err => console.error('Failed to fetch news', err));
+    }
+    let isScrollingRight = true; 
+
+    function scrollNews() {
+        if (isScrollingRight) {
+            newsContentContainer.style.transform = 'translateX(-100%)';
+        } else {
+            newsContentContainer.style.transform = 'translateX(0)';
+        }
+        setTimeout(() => {
+            if (isScrollingRight) {
+                newsContentContainer.removeChild(newsContentContainer.firstChild);
+            }
+            isScrollingRight = !isScrollingRight;
+            currentNewsId = (currentNewsId % totalNews) + 1;
+            loadNews(currentNewsId);
+        }, 1000);
+    }
+    loadNews(currentNewsId);
+
+    setInterval(scrollNews, 5000);
+</script>
+{% endblock %}

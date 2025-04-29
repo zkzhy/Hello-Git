@@ -1,0 +1,2 @@
+KEY = b'0123456789abcdef0123456789abcdef'  # 32字节
+ADMIN_PASSWORD = 'admin123'
